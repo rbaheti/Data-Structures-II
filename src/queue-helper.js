@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* eslint-disable class-methods-use-this */
 // Queue helper class for binarySearchTree.breadthFirstForEach implementation
 class Queue {
     constructor() {
