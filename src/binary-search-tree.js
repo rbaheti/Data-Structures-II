@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable class-methods-use-this */
+const Queue = require('./queue-helper');
+
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
@@ -39,7 +41,16 @@ class BinarySearchTree {
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process
   depthFirstForEach(cb) {
-
+    function depthFirstTraversal(bstNode) {
+      cb(bstNode.value);
+      if (bstNode.left) {
+        depthFirstTraversal(bstNode.left);
+      }
+      if (bstNode.right) {
+        depthFirstTraversal(bstNode.right);
+      }
+    }
+    depthFirstTraversal(this);
   }
   // Traverses the tree in a breadth-first manner, i.e. in layers, starting 
   // at the root node, going down to the root node's children, and iterating
@@ -48,7 +59,18 @@ class BinarySearchTree {
   // You'll need the queue-helper file for this. Or could you roll your own queue
   // again. Whatever floats your boat.
   breadthFirstForEach(cb) {
-
+    const queue = new Queue();
+    queue.enqueue(this);
+    while (!queue.isEmpty()) {
+      const bstNode = queue.dequeue();
+      cb(bstNode.value);
+      if (bstNode.left) {
+        queue.enqueue(bstNode.left);
+      }
+      if (bstNode.right) {
+        queue.enqueue(bstNode.right);
+      }
+    }
   }
 }
 
