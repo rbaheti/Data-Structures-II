@@ -41,7 +41,13 @@ class Graph {
   // Optionally accepts an array of other GraphNodes for the new vertex to be connected to
   // Returns the newly-added vertex
   addVertex(value, edges = []) {
-
+    const graphNode = new GraphNode(value, edges);
+    this.vertices.push(graphNode);
+    if(this.vertices.length === 2) {
+      this.addEdge(this.vertices[0], this.vertices[1]);
+      this.addEdge(this.vertices[1], this.vertices[0]);
+    }
+    return graphNode;
   }
   // Checks all the vertices of the graph for the target value
   // Returns true or false
@@ -65,7 +71,7 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-
+    fromVertex.pushToEdges(toVertex);
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
