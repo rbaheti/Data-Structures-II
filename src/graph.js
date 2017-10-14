@@ -81,15 +81,24 @@ class Graph {
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other 
   addEdge(fromVertex, toVertex) {
-    fromVertex.pushToEdges(toVertex);
-    toVertex.pushToEdges(fromVertex);
+    if (!this.checkIfEdgeExists(fromVertex, toVertex)) {
+      fromVertex.pushToEdges(toVertex);
+      toVertex.pushToEdges(fromVertex);
+    }
   }
   // Removes the edge between the two given vertices if an edge already exists between them
   // After removing the edge, neither vertex should be referencing the other
   // If a vertex would be left without any edges as a result of calling this function, those
   // vertices should be removed as well
   removeEdge(fromVertex, toVertex) {
-
+    if (this.checkIfEdgeExists(fromVertex, toVertex)) {
+      const edgeArr = fromVertex.edges;
+      const edgeArr1 = toVertex.edges;
+      fromVertex.edges = edgeArr.filter(edges => edges.value !== toVertex.value);
+      toVertex.edges = edgeArr1.filter(edges => edges.value !== fromVertex.value);
+      if (fromVertex.numberOfEdges === 0) this.removeVertex(fromVertex.value);
+      if (toVertex.numberOfEdges === 0) this.removeVertex(toVertex.value);
+    }
   }
 }
 
