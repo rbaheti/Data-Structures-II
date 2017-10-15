@@ -45,7 +45,6 @@ class Graph {
     this.vertices.push(graphNode);
     if (this.vertices.length === 2) {
       this.addEdge(this.vertices[0], this.vertices[1]);
-      this.addEdge(this.vertices[1], this.vertices[0]);
     }
     return graphNode;
   }
